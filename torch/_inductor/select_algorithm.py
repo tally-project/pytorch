@@ -701,6 +701,12 @@ class AlgorithmSelectorCache(PersistentCache):
     ):
         # TODO(nmacchioni): remove once CI tests are fixed
         choices = [choice for choice in choices if choice is not None]
+
+        # only consider Triton template kernel, exclude external kernel (e.g. cublas)
+        triton_choices = [choice for choice in choices if isinstance(choice, TritonTemplateCaller)]
+        if len(triton_choices) > 0:
+            choices = triton_choices
+
         if len(choices) == 0:
             raise RuntimeError(
                 "No choices to select, please consider adding ATEN into max_autotune_gemm_backends "
