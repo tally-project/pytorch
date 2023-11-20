@@ -1478,6 +1478,9 @@ NvrtcFunction jit_pwise_function(
   at::cuda::jit::codegenOutputQuery(
     prop, cuda_major, cuda_minor, nvrtc_major, nvrtc_minor, compile_to_sass);
 
+  // Force to compile PTX
+  compile_to_sass = false;
+
   // Objects used whether loading from the cache or jit compiling
   const auto& nvrtc = at::globalContext().getNVRTC();
   NvrtcFunction compiled_kernel_;
