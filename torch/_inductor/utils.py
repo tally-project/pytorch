@@ -20,6 +20,7 @@ import textwrap
 import time
 import unittest
 from io import StringIO
+from pathlib import Path
 from typing import (
     Any,
     Callable,
@@ -622,7 +623,7 @@ def cache_dir() -> str:
     if cache_dir is None:
         sanitized_username = re.sub(r'[\\/:*?"<>|]', "_", getpass.getuser())
         cache_dir = os.path.join(
-            tempfile.gettempdir(),
+            str(Path.home()),
             "torchinductor_" + sanitized_username,
         )
     os.makedirs(cache_dir, exist_ok=True)
